@@ -1,0 +1,90 @@
+ <!DOCTYPE html>
+<html>
+<style>
+#chessBoard{
+    display: inline-block;
+    border: 2px outset lightGray;
+}
+
+#chessBoard div{
+    line-height: 1px;
+}
+
+#chessBoard span{
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+}
+#chessRed {
+    background-color: red !important;
+}
+
+
+#chessBoard div:nth-child(odd) span:nth-child(even),
+#chessBoard div:nth-child(even) span:nth-child(odd){
+    background-color: black;
+}
+#chessBoard div:nth-child(even) span:nth-child(even),
+#chessBoard div:nth-child(odd) span:nth-child(odd){
+    background-color: snow;
+}
+
+</style>
+<body onload="getChessBoard()">
+
+<h1>Chess Board</h1>
+
+<script>
+function getChessBoard(clickParam) {
+  var x=8;
+	var y=8;
+var count = 0;
+var chessBoard = document.getElementById("chessBoard");
+if(clickParam){
+		chessBoard.innerHTML = '';
+}
+for (var i=0; i<y; i++){
+      var divElemnt = document.createElement("div");  
+      var divClassAtt = document.createAttribute("class");  
+      divClassAtt.value = "container-"+i; 
+      divElemnt.setAttributeNode(divClassAtt);
+    	var row = chessBoard.appendChild(divElemnt);
+    	for (var j=0; j<x; j++){
+    	var chessElemnt = document.createElement("span");
+    	var classAtt = document.createAttribute("class");    
+    	var idAtt = document.createAttribute("id");
+
+    	var tempArr = '';
+    	tempArr = i + j;
+      if(clickParam){
+      //var className = clickParam.target.className;
+      //var appendClass = document.getElementsByClassName(className);
+      //console.log('className',appendClass);
+     }
+      
+      if(tempArr % 2 == 0) {
+           classAtt.value = "white-"+count; 
+      	}else{
+          classAtt.value = "black-"+count; 
+      }
+    if(j <= 5 && clickParam && tempArr % 2) {
+         idAtt.value = "chessRed";
+     }	
+        
+		chessElemnt.setAttributeNode(classAtt);
+    chessElemnt.setAttributeNode(idAtt);
+    chessElemnt.onclick = function(index){
+      getChessBoard(index);
+    }
+    row.appendChild(chessElemnt);
+    count++;
+    }
+}
+
+}
+</script>
+
+</body>
+</html>
+ 
+ <div onload="getChessBoard()" id="chessBoard"></div>
